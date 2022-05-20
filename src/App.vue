@@ -1,28 +1,54 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+
+    <HeaderComp />
+
+    <MainComp />
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HeaderComp from './components/HeaderComp.vue';
+import MainComp from './components/MainComp.vue';
+import axios from 'axios'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HeaderComp,
+    MainComp
+},
+mounted(){
+  this.getAPI()
+},
+data(){
+  return{
+    baseUrl: "https://api.themoviedb.org/3/search/movie",
+    paramsUrl: {
+      api_key: "0db6a8bb5fd5afb93efc8955fa3dcf64",
+      language: "it-IT",
+      query: "Harry Potter"
+    }
   }
+},
+methods: {
+  getAPI(){
+    axios.get(this.baseUrl, {
+      params: this.paramsUrl
+    })
+    .then(r =>{
+      console.log(r.data);
+    })
+    .catch(e =>{
+      console.log(e);
+    })
+  }
+}
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
