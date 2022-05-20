@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div id="app">
 
-    <HeaderComp />
+    <HeaderComp @changeInput= 'assignInput'/>
 
-    <MainComp />
+    <MainComp :films = "films"/>
 
   </div>
 </template>
@@ -20,18 +20,20 @@ export default {
     HeaderComp,
     MainComp
 },
-mounted(){
-  this.getAPI()
-},
 data(){
   return{
     baseUrl: "https://api.themoviedb.org/3/search/movie",
+    films: [],
     paramsUrl: {
-      api_key: "0db6a8bb5fd5afb93efc8955fa3dcf64",
-      language: "it-IT",
-      query: "Harry Potter"
-    }
+        api_key: "0db6a8bb5fd5afb93efc8955fa3dcf64",
+        language: "it-IT",
+        query: ""
+    },
+    
   }
+},
+mounted(){
+  
 },
 methods: {
   getAPI(){
@@ -39,16 +41,23 @@ methods: {
       params: this.paramsUrl
     })
     .then(r =>{
-      console.log(r.data);
+      this.films = r.data.results;
+      console.log(this.films);
     })
     .catch(e =>{
       console.log(e);
     })
+  },
+  assignInput(inputValue){
+    this.paramsUrl.query = inputValue;
+    this.getAPI()
   }
-}
+},
 }
 </script>
 
 <style lang="scss">
+@import './assets/style/global';
+@import './assets/style/vars';
 
 </style>
