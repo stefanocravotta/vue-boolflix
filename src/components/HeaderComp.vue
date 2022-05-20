@@ -2,7 +2,10 @@
   <header class="d-flex justify-content-between py-3">
       <div class="logo ms-3"><img src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png" alt=""></div>
       <div class="filter-bar d-flex">
-            <select v-model="selected" class="form-control mx-3">
+            <select 
+            v-model="selected" 
+            @change="$emit('changeValue', selected)"
+            class="form-control mx-3">
                 <option value="all" selected>Scegli una categoria</option>
                 <option value="movie" selected>Film</option>
                 <option value="tv" selected>Serie TV</option>

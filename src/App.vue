@@ -1,9 +1,9 @@
 <template>
   <div id="app">
 
-    <HeaderComp @changeInput= 'assignInput'/>
+    <HeaderComp @changeInput= 'assignInput' @changeValue= 'changeList'/>
 
-    <MainComp :films = "films"/>
+    <MainComp :films = "films" :selectValue="selectValue" />
 
   </div>
 </template>
@@ -22,13 +22,14 @@ export default {
 },
 data(){
   return{
-    baseUrl: "https://api.themoviedb.org/3/search/movie",
+    baseUrl: "https://api.themoviedb.org/3/search/multi",
     films: [],
     paramsUrl: {
         api_key: "0db6a8bb5fd5afb93efc8955fa3dcf64",
         language: "it-IT",
         query: ""
     },
+    selectValue:""
     
   }
 },
@@ -51,6 +52,9 @@ methods: {
   assignInput(inputValue){
     this.paramsUrl.query = inputValue;
     this.getAPI()
+  },
+  changeList(selectValue){
+    this.selectValue = selectValue
   }
 },
 }
