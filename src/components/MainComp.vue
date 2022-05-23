@@ -27,12 +27,6 @@ export default {
         selectValue: String
     },
     components: { CardComponentMovies, CardComponentTvs },
-
-    methods: {
-        filter(){
-
-        }
-    }
 }
 </script>
 

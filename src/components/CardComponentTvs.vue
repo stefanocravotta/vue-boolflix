@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="text-center ">
       <h1>Serie Tv</h1>
-      <div class="container flex-wrap container-card d-flex justify-content-center py-4">
-          <div v-for="tv in tvs" :key="tv.id" class="sc-card m-2 flip-card">
-                <div class="flip-card-inner">
+      <div class="container d-flex flex-wrap justify-content-center align-items-center">
+      <div v-for="tv in tvs" :key="tv.id" class="sc-card m-2 flip-card">
+      <div class="flip-card-inner">
                     <div v-if="tv.poster_path !== null" class="flip-card-front" id="copertina">
                         <img :src="`https://image.tmdb.org/t/p/w342/${tv.poster_path}`" alt="">
                     </div>
@@ -11,18 +11,27 @@
                         <img src="https://media.istockphoto.com/vectors/internet-error-page-not-found-in-vertical-orientation-for-mobile-a-vector-id1252582562?k=20&m=1252582562&s=170667a&w=0&h=O1wwtikUXIdVVBKzIEDHvd9MDnwoeuClx90cuIq1SEo=" alt="">
                     </div>
 
-                    <div id="descrizione" class="flip-card-back d-flex flex-wrap flex-column align-items-center">
-                        <div class="cont-img-small">
-                            <img :src="`https://image.tmdb.org/t/p/w342/${tv.poster_path}`" alt="">
+                    <div id="descrizione" class="flip-card-back ">
+                            <div>
+                                <h5>{{tv.name}}</h5>
+                            </div>
+                            <div class="my-3">
+                                <p >{{tv.original_title}}</p>
+                            </div>
+                            <div>
+                                <p>Lingua Originale : <lang-flag :iso= "tv.original_language" /></p>
+                            </div>
+                            <div id="trama" class="my-3">
+                                <p>{{tv.overview}}</p>
+                            </div>
+                            <div class="align-items-center justify-content-center d-flex ">
+                                <p>Voto<star-rating id="stars" :star-size="20" :rating="starRating(tv.vote_average)"></star-rating></p>
+                            </div>
                         </div>
-                        <h5 >{{tv.title}}</h5>
-                        <p >{{tv.original_title}}</p>
-                        <p>Original Language : <lang-flag :iso= "tv.original_language" /></p>
-                        <p>{{tv.vote_average}} <i class="fa-regular fa-star"></i></p>
-                    </div>
                 </div>
-            </div>
-      </div>
+                </div>
+      
+    </div>
   </div>
 </template>
 
@@ -32,30 +41,33 @@ export default {
     props:{
         tvs:Array
     },
+    methods:{
+        starRating(number){
+            return Math.round(number / 2)
+        }
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../assets/style/vars';
 
+.container{
+    min-height: 420px;
+}
+
 .sc-card{
         border-radius: 20px;
         img{
-            max-width: 100%;
+            
             border-radius: 20px;
         }
         .cont-img-small{
             width: 40%;
             img{
                 width: 100%;
+                height: 100%;
             }
-        }
-        h5{
-            margin: 10px 0;
-            padding: 5px 0;
-        } 
-        p{
-            margin: 5px 0;
         }
         
 
@@ -67,12 +79,15 @@ export default {
         height: 420px;
         perspective: 1000px; 
         border-radius: 20px;
+        img{
+            width: 100%;
+        }
 
     }
     .flip-card-inner {
         position: relative;
         width: 100%;
-        height: 99.6%;
+        height: 100%;
         text-align: center;
         transition: transform 0.8s;
         transform-style: preserve-3d;
@@ -97,5 +112,9 @@ export default {
     background-image: linear-gradient($secondary-color,lighten($primary-color,10%));;
     color: white;
     transform: rotateY(180deg);
+    }
+    #trama{
+        max-height: 30%;
+        overflow-y: auto;
     }
 </style>
