@@ -23,7 +23,7 @@ export default {
 data(){
   return{
     baseUrl: "https://api.themoviedb.org/3/search/",
-    trendingUrl: "https://api.themoviedb.org/3/trending/all/week",
+    trendingUrl: "https://api.themoviedb.org/3/trending/",
     movies: [],
     tvs: [],
     collection: [],
@@ -32,16 +32,17 @@ data(){
         language: "it-IT",
         query: ""
     },
-    selectValue:""
+    selectValue:"all"
     
   }
 },
 mounted(){
   this.getAPITrending()
+  console.log(this.selectValue);
 },
 methods: {
-  getAPIMovie(movie){
-    axios.get(`${this.baseUrl}${movie}`, {
+  getAPIMovie(){
+    axios.get(`${this.baseUrl}movie`, {
       params: this.paramsUrl
     })
     .then(r =>{
@@ -50,10 +51,8 @@ methods: {
     })
     .catch(e =>{
       console.log(e);
-    })
-  },
-  getAPITv(tv){
-    axios.get(`${this.baseUrl}${tv}`, {
+    }),
+    axios.get(`${this.baseUrl}tv`, {
       params: this.paramsUrl
     })
     .then(r =>{
@@ -65,14 +64,22 @@ methods: {
     })
   },
   getAPITrending(){
-    axios.get(`${this.trendingUrl}`, {
-      params: {
-        api_key: "0db6a8bb5fd5afb93efc8955fa3dcf64",
-      },
+    axios.get(`${this.trendingUrl}movie/week`, {
+      params: this.paramsUrl
     })
     .then(r =>{
       this.movies = r.data.results;
       console.log(this.movies);
+    })
+    .catch(e =>{
+      console.log(e);
+    }),
+    axios.get(`${this.trendingUrl}tv/week`, {
+      params: this.paramsUrl
+    })
+    .then(r =>{
+      this.tvs = r.data.results;
+      console.log(this.tvs);
     })
     .catch(e =>{
       console.log(e);
@@ -81,11 +88,11 @@ methods: {
 
   assignInput(inputValue){
     this.paramsUrl.query = inputValue;
-    this.getAPIMovie("movie")
-    this.getAPITv("tv")
+    this.getAPIMovie()
   },
   changeList(selectValue){
-    this.selectValue = selectValue
+    this.selectValue = selectValue;
+    console.log(this.selectValue);
   }
 },
 }

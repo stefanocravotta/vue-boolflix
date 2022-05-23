@@ -17,8 +17,7 @@
                         </div>
                         <h5 >{{tv.title}}</h5>
                         <p >{{tv.original_title}}</p>
-                        <p v-if="tv.original_language === 'en' ">Original Language : <img src="../assets/united-kingdom.png" alt=""></p>
-                        <p v-else>{{tv.original_language}}</p>
+                        <p>Original Language : <lang-flag :iso= "tv.original_language" /></p>
                         <p>{{tv.vote_average}} <i class="fa-regular fa-star"></i></p>
                     </div>
                 </div>

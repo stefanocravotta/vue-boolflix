@@ -11,14 +11,18 @@
                         <img src="https://media.istockphoto.com/vectors/internet-error-page-not-found-in-vertical-orientation-for-mobile-a-vector-id1252582562?k=20&m=1252582562&s=170667a&w=0&h=O1wwtikUXIdVVBKzIEDHvd9MDnwoeuClx90cuIq1SEo=" alt="">
                     </div>
 
-                    <div id="descrizione" class="flip-card-back d-flex flex-wrap flex-column align-items-center">
-                        <div class="cont-img-small">
-                            <img :src="`https://image.tmdb.org/t/p/w342/${movie.poster_path}`" alt="">
+                    <div id="descrizione" class="flip-card-back d-flex flex-wrap ">
+                        <div class="row">
+                            <div class="col-4">
+                                <img :src="`https://image.tmdb.org/t/p/w342/${movie.poster_path}`" alt="">
+                            </div>
+                            <div class="col-8">
+                                <h5 class="col-12">Titolo : {{movie.title}}</h5>
+                            </div>
                         </div>
-                        <h5 >{{movie.title}}</h5>
-                        <p >{{movie.original_title}}</p>
-                        <p v-if="movie.original_language === 'en' ">Original Language : <img src="../assets/united-kingdom.png" alt=""></p>
-                        <p v-else>{{movie.original_language}}</p>
+
+                        <p >Titolo Originale : {{movie.original_title}}</p>
+                        <p>Original Language : <lang-flag :iso= "movie.original_language" /></p>
                         <p>{{movie.vote_average}} <i class="fa-regular fa-star"></i></p>
                     </div>
                 </div>
@@ -46,23 +50,6 @@ export default {
             max-width: 100%;
             border-radius: 20px;
         }
-        .cont-img-small{
-            width: 40%;
-            img{
-                width: 100%;
-            }
-        }
-        h5{
-            margin: 10px 0;
-            padding: 5px 0;
-        } 
-        p{
-            margin: 5px 0;
-            img{
-                width: 30px;
-            }
-        }
-        
 
     }
     .flip-card {
@@ -98,9 +85,27 @@ export default {
     color: black;
     }
     .flip-card-back {
-    padding: 30px;
+    max-width: 100%;
+    padding: 10px ;
     background-image: linear-gradient($secondary-color,lighten($primary-color,10%));;
     color: white;
     transform: rotateY(180deg);
+        .cont-img-small{
+            width: 40%;
+            img{
+                width: 100%;
+            }
+        }
+        h5{
+            margin: 10px 0;
+            padding: 5px 0;
+        } 
+        p{
+            margin: 5px 0;
+            img{
+                width: 30px;
+            }
+        }
+        
     }
 </style>

@@ -7,8 +7,8 @@
             @change="$emit('changeValue', selected)"
             class="form-control mx-3">
                 <option value="all" selected>Scegli una categoria</option>
-                <option value="movie" selected>Film</option>
-                <option value="tv" selected>Serie TV</option>
+                <option value="movie">Film</option>
+                <option value="tv">Serie TV</option>
             </select>
             <div class="search-bar d-flex">
                 <input 

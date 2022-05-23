@@ -1,14 +1,18 @@
 <template>
   <main>
-      <div v-if="selectValue === '' ">
-        <CardComponentMovies v-if="movies.length > 0" :movies="movies" />
-        <div v-else></div>
-        <CardComponentTvs v-if="tvs.length > 0" :tvs="tvs" />
-        <div v-else></div>
-      </div>
-      <div v-else>
-          <h1>Nessun risultato corrisponde ai criteri di ricerca</h1>
-      </div>
+        <div v-if="selectValue === 'all' ">
+            <CardComponentMovies :movies="movies" />
+            <CardComponentTvs :tvs="tvs" />
+        </div>
+        <div v-else-if="selectValue === 'movie' ">
+            <CardComponentMovies :movies="movies" />
+        </div>
+        <div v-else-if="selectValue === 'tv' ">
+            <CardComponentTvs :tvs="tvs" />
+        </div>
+        <div v-else>
+            <h1>Nessun risultato corrisponde ai criteri di ricerca</h1>
+        </div>
   </main>
 </template>
 
@@ -22,7 +26,13 @@ export default {
         tvs: Array,
         selectValue: String
     },
-    components: { CardComponentMovies, CardComponentTvs }
+    components: { CardComponentMovies, CardComponentTvs },
+
+    methods: {
+        filter(){
+
+        }
+    }
 }
 </script>
 
