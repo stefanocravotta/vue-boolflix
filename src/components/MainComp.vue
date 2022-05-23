@@ -35,7 +35,7 @@ export default {
 
 main{
     min-height: calc(100vh - 80px);
-    background-image: linear-gradient(lighten($primary-color,10%),$secondary-color);
+    background-image: linear-gradient($secondary-color,darken($primary-color, 20%));
     
 }
 

@@ -42,7 +42,7 @@ export default {
 
 header{
     height: 80px;
-    background-image: linear-gradient($secondary-color,lighten($primary-color,10%));
+    background-color: $secondary-color;
     select{
         min-width: 160px;
     }

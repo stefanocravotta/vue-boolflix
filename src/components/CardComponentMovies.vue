@@ -9,7 +9,7 @@
                             <img :src="`https://image.tmdb.org/t/p/w342/${movie.poster_path}`" alt="">
                         </div>
                         <div v-else class="flip-card-front">
-                            <img src="https://media.istockphoto.com/vectors/internet-error-page-not-found-in-vertical-orientation-for-mobile-a-vector-id1252582562?k=20&m=1252582562&s=170667a&w=0&h=O1wwtikUXIdVVBKzIEDHvd9MDnwoeuClx90cuIq1SEo=" alt="">
+                            <img src="https://w0.peakpx.com/wallpaper/894/391/HD-wallpaper-404-background-apple-designer-error-humor-logo-not-found-silly.jpg" alt="">
                         </div>
     
                         <div id="descrizione" class="flip-card-back ">
@@ -64,7 +64,9 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/style/vars';
 
-
+h1{
+    color: $primary-color;
+}
 .sc-card{
         border-radius: 20px;
         img{
