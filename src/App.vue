@@ -3,7 +3,7 @@
 
     <HeaderComp @changeInput= 'assignInput' @changeValue= 'changeList'/>
 
-    <MainComp :films = "films" :selectValue="selectValue" />
+    <MainComp :movies = "movies" :tvs="tvs" :selectValue="selectValue" />
 
   </div>
 </template>
@@ -22,8 +22,11 @@ export default {
 },
 data(){
   return{
-    baseUrl: "https://api.themoviedb.org/3/search/multi",
-    films: [],
+    baseUrl: "https://api.themoviedb.org/3/search/",
+    trendingUrl: "https://api.themoviedb.org/3/trending/all/week",
+    movies: [],
+    tvs: [],
+    collection: [],
     paramsUrl: {
         api_key: "0db6a8bb5fd5afb93efc8955fa3dcf64",
         language: "it-IT",
@@ -34,24 +37,52 @@ data(){
   }
 },
 mounted(){
-  
+  this.getAPITrending()
 },
 methods: {
-  getAPI(){
-    axios.get(this.baseUrl, {
+  getAPIMovie(movie){
+    axios.get(`${this.baseUrl}${movie}`, {
       params: this.paramsUrl
     })
     .then(r =>{
-      this.films = r.data.results;
-      console.log(this.films);
+      this.movies = r.data.results;
+      console.log(this.movies);
     })
     .catch(e =>{
       console.log(e);
     })
   },
+  getAPITv(tv){
+    axios.get(`${this.baseUrl}${tv}`, {
+      params: this.paramsUrl
+    })
+    .then(r =>{
+      this.tvs = r.data.results;
+      console.log(this.tvs);
+    })
+    .catch(e =>{
+      console.log(e);
+    })
+  },
+  getAPITrending(){
+    axios.get(`${this.trendingUrl}`, {
+      params: {
+        api_key: "0db6a8bb5fd5afb93efc8955fa3dcf64",
+      },
+    })
+    .then(r =>{
+      this.movies = r.data.results;
+      console.log(this.movies);
+    })
+    .catch(e =>{
+      console.log(e);
+    })
+  },
+
   assignInput(inputValue){
     this.paramsUrl.query = inputValue;
-    this.getAPI()
+    this.getAPIMovie("movie")
+    this.getAPITv("tv")
   },
   changeList(selectValue){
     this.selectValue = selectValue

@@ -29,7 +29,7 @@ export default {
     name: "HeaderComp",
     data(){
         return{
-            inputSearch: "mondo",
+            inputSearch: "",
             selected: "all"
         }
     },
