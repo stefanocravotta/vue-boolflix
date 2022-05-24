@@ -2,14 +2,24 @@
   <div class="text-center " id="app">
 
     <HeaderComp @startSearch="startSearch"/>
+  
+    <div v-if="!isStart" class="start-cont d-flex justify-content-center align-items-center">
+      <div class="d-flex justify-content-center align-items-center flex-column py-5 container init-container" >
+        <h1>NETFLIX TI DA IL BENVENUTO</h1>
+        <h4 class="mt-3"><i class="fa-solid fa-arrow-down"></i> Clicca per iniziare <i class="fa-solid fa-arrow-down"></i></h4>
+        <button id="start" @click="toggleStart"><i class="fa-solid fa-play"></i></button>
+      </div>
+    </div>
 
-    <div v-if="!isLoading">
+    <div v-else>
+      <div v-if="!isLoading">
       <MainComp v-if="movie.length > 0"  :items = "movie" titolo="Film" />
       <MainComp v-if="tv.length > 0" :items = "tv" titolo="Serie Tv"/>
 
       <h1 class="no-result" v-if="movie.length === 0 && tv.length === 0">Nessun risultato corrisponde ai criteri di ricerca</h1>
     </div>
     <LoadingComp v-else />
+    </div>
     
 
   </div>
@@ -62,7 +72,7 @@ methods: {
     })
     .then(r =>{
       this[type] = r.data.results;
-      if(type.length > 0) this.isLoading = false;
+      if(type.length > 1) this.isLoading = false;
       
     })
     .catch(e =>{
