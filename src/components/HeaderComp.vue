@@ -4,7 +4,7 @@
       <div class="filter-bar d-flex">
             <select 
             v-model="selected" 
-            @change="$emit('changeValue', selected)"
+            @change="$emit('startSearch', selected , inputSearch)"
             class="form-control mx-3">
                 <option value="all" selected>Scegli una categoria</option>
                 <option value="movie">Film</option>
@@ -13,12 +13,12 @@
             <div class="search-bar d-flex">
                 <input 
                 v-model="inputSearch" 
-                @keyup.enter="$emit('changeInput', inputSearch )" 
+                @keyup.enter="$emit('startSearch', selected , inputSearch )" 
                 class="form-control" 
                 type="text"
                 placeholder="Cerca il tuo film">
             </div>  
-            <button @click="$emit('changeInput', inputSearch )" class="btn btn-dark mx-3">Cerca</button>
+            <button @click="$emit('startSearch' , selected , inputSearch )" class="btn mx-3">Cerca</button>
       </div>
       
   </header>
@@ -42,7 +42,6 @@ export default {
 
 header{
     height: 80px;
-    background-color: $secondary-color;
     select{
         min-width: 160px;
     }
@@ -51,6 +50,16 @@ header{
     }
     .logo img{
         max-width: 100px;
+    }
+    button{
+        border: 1px solid white;
+        color: white;
+        border-radius: 10px;
+        &:hover{
+        border: 1px solid $primary-color; 
+        color: $primary-color;
+
+        }
     }
 }
 </style>
